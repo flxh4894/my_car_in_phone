@@ -1,67 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_car_in_phone/views/home.dart';
-import 'package:my_car_in_phone/views/test.dart';
+import 'package:my_car_in_phone/generated/l10n.dart';
+import 'package:my_car_in_phone/routes/routes.dart';
 
 void main() async {
   runApp(
     const ProviderScope(
-      child: MyApp(
-        child: Text("Hello World!"),
-      ),
+      child: MyApp(),
     ),
   );
 }
 
-// init app
-class MyApp extends ConsumerStatefulWidget {
-  const MyApp({
-    super.key,
-    required this.child,
-  });
-
-  final Widget child;
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
-}
-
-class _MyAppState extends ConsumerState<MyApp> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: "My Car",
-      navigatorKey: GlobalKey(),
-      home: HomePage(),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({
-    Key? key,
-    required this.widget,
-  }) : super(key: key);
-
-  final MyApp widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          widget.child,
-          TextButton(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ctx) => HomePage(),
-              ),
-            ),
-            child: const Text("Route Page"),
-          )
-        ],
-      ),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      initialRoute: RouteEnum.splash.path,
+      onGenerateRoute: myRoute,
     );
   }
 }

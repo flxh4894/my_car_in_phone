@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:my_car_in_phone/models/enum/part_type_enum.dart';
 
 part 'repair.freezed.dart';
 part 'repair.g.dart';
@@ -6,9 +7,8 @@ part 'repair.g.dart';
 @freezed
 class RepairModel with _$RepairModel {
   factory RepairModel({
-    required String name,
     required DateTime lastTime,
-    required String typeEnum,
+    required PartTypeEnum typeEnum,
     required int cycle,
   }) = _RepairModel;
 

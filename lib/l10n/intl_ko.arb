@@ -1,0 +1,21 @@
+{
+  "title": "반갑습니다.",
+  "info": "차량 관리{number}",
+  "PartTypeEnumEngineOil": "엔진오일",
+  "PartTypeEnumEnginFlushing": "엔진오일플러싱(세척)",
+  "PartTypeEnumEngineOilFilter": "엔진오일필터",
+  "PartTypeEnumAirFilter": "에어필터",
+  "PartTypeEnumMissionOil": "미션오일",
+  "PartTypeEnumBreakOil": "브레이크오일",
+  "PartTypeEnumBreakPad": "브레이크패드",
+  "PartTypeEnumBreakDisk": "브레이크디스크",
+  "PartTypeEnumBreakGrinding": "브레이크연마",
+  "PartTypeEnumAirConditionFilter": "에어컨필터",
+  "PartTypeEnumTire": "타이어",
+  "PartTypeEnumBattery": "배터리",
+  "seeMore": "더보기",
+  "carInfo": "내차정보",
+  "carManage": "차량 관리",
+  "needChange": "{day}일 뒤에 교체 필요.",
+  "needChangeNow": "교체예정일이 지났습니다."
+}
