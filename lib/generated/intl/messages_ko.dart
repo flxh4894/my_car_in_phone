@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "info": m0,
         "needChange": m1,
         "needChangeNow": MessageLookupByLibrary.simpleMessage("교체예정일이 지났습니다."),
+        "repadRecord": MessageLookupByLibrary.simpleMessage("나의 정비 내역"),
         "seeMore": MessageLookupByLibrary.simpleMessage("더보기"),
         "title": MessageLookupByLibrary.simpleMessage("반갑습니다.")
       };
