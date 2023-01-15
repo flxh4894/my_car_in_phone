@@ -111,6 +111,14 @@ class HomePage extends ConsumerWidget {
                     )
                 ],
               ),
+            ),
+
+            TextButton(
+              onPressed: () => Navigator.pushNamed(
+                context,
+                RouteEnum.calendar.path,
+              ),
+              child: Text("교체내역(달력)"),
             )
           ],
         ),

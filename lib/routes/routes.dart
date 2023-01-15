@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:my_car_in_phone/splash.dart';
+import 'package:my_car_in_phone/views/calrendar.dart';
 import 'package:my_car_in_phone/views/home.dart';
 import 'package:my_car_in_phone/views/test.dart';
 
 // Route Enum
-enum RouteEnum { splash, home, menu, test }
+enum RouteEnum { splash, home, menu, test, calendar }
 
 extension RouteEnumExtension on RouteEnum {
   String get path => toString();
@@ -28,6 +29,8 @@ Widget getRouteWidget(RouteEnum route) {
       return Container();
     case RouteEnum.test:
       return TestPage();
+    case RouteEnum.calendar:
+      return CalendarPage();
   }
 }
 
@@ -53,16 +56,7 @@ PageRoute packRoute(RouteSettings settings) {
 }
 
 /// 메인함수
-PageRoute myRoute(RouteSettings settings) {
-  final String? name = settings.name;
-
-  // 아무 데이터도 없는 경우는 없다. 사실 에러 페이지로 가야 함.
-  if (name == null || name == "") {
-    return MaterialPageRoute(builder: (_) => Container());
-  }
-
-  return packRoute(settings);
-}
+PageRoute myRoute(RouteSettings settings) => packRoute(settings);
 
 /// ******************
 /// 트랜지션 모음

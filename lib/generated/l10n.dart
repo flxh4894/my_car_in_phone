@@ -239,6 +239,16 @@ class S {
       args: [],
     );
   }
+
+  /// `나의 정비 내역`
+  String get repairRecord {
+    return Intl.message(
+      '나의 정비 내역',
+      name: 'repadRecord',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

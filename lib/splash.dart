@@ -16,7 +16,13 @@ class SplashPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<Map>(splashProvider, (previous, next) {
-      if (next["status"]) Navigator.pushNamed(context, RouteEnum.home.path);
+      if (next["status"]) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          RouteEnum.home.path,
+          (route) => false,
+        );
+      }
     });
 
     return Scaffold(
