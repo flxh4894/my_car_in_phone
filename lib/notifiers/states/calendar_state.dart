@@ -10,6 +10,7 @@ class CalendarState with _$CalendarState {
     required DateTime selectedDay,
     required DateTime firstDay,
     required DateTime lastDay,
+    required Map<String, List> events,
   }) = _CalendarState;
 
   factory CalendarState.fromJson(Map<String, Object?> json) =>

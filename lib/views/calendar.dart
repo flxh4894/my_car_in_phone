@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -16,11 +17,27 @@ class CalendarNotifier extends _$CalendarNotifier {
       selectedDay: DateTime.now(),
       firstDay: DateTime(1970, 1, 1),
       lastDay: DateTime(2099, 12, 31),
+      events: {},
     );
   }
 
-  void updateDaySelected(DateTime selectedDay) {
-    state = state.copyWith(selectedDay: selectedDay);
+  void updateDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    state = state.copyWith(
+      selectedDay: selectedDay,
+      focusedDay: focusedDay,
+    );
+  }
+
+  void addDayEvents(DateTime selectedDay) {
+    final key = DateFormat('yyyyMMdd').format(selectedDay);
+    Map<String, List> result = Map<String, List>.from(state.events);
+
+    if (state.events[key] == null) {
+      result[key] = ["새로 추가함"];
+    } else {
+      result[key] = [...state.events[key]!, "기존에 더해짐"];
+    }
+    state = state.copyWith(events: result);
   }
 }
 
@@ -39,7 +56,8 @@ class CalendarPage extends ConsumerWidget {
             return isSameDay(day, ref.watch(cp).selectedDay);
           },
           onDaySelected: (selectedDay, focusedDay) {
-            ref.read(cp.notifier).updateDaySelected(selectedDay);
+            ref.read(cp.notifier).addDayEvents(selectedDay);
+            ref.read(cp.notifier).updateDaySelected(selectedDay, focusedDay);
           },
           firstDay: ref.watch(cp).firstDay,
           lastDay: ref.watch(cp).lastDay,
@@ -47,8 +65,12 @@ class CalendarPage extends ConsumerWidget {
           availableCalendarFormats: const {
             CalendarFormat.month: "Month",
           },
+          headerStyle: const HeaderStyle(
+            titleCentered: true,
+          ),
           eventLoader: (day) {
-            return [1];
+            final key = DateFormat('yyyyMMdd').format(day);
+            return ref.watch(cp).events[key] ?? [];
           },
           calendarBuilders: CalendarBuilders(
             dowBuilder: (context, day) {
@@ -69,6 +91,36 @@ class CalendarPage extends ConsumerWidget {
                   ),
                 );
               }
+            },
+            defaultBuilder: (context, day, focusedDay) {
+              Color? color;
+              if (day.weekday == DateTime.sunday) {
+                color = Colors.redAccent;
+              } else if (day.weekday == DateTime.saturday) {
+                color = Colors.blueAccent;
+              }
+
+              return Container(
+                alignment: Alignment.center,
+                child: Text(
+                  day.day.toString(),
+                  style: TextStyle(color: color),
+                ),
+              );
+            },
+            markerBuilder: (context, day, events) {
+              return events.isEmpty
+                  ? const Offstage()
+                  : Container(
+                      width: 10,
+                      height: 10,
+                      color: Colors.amber,
+                      alignment: Alignment.center,
+                      child: Text(
+                        events.length.toString(),
+                        style: const TextStyle(fontSize: 8),
+                      ),
+                    );
             },
           ),
         ),
