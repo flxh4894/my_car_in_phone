@@ -2,33 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_car_in_phone/models/test_model.dart';
 import 'package:my_car_in_phone/notifiers/test_notifier.dart';
-import 'package:my_car_in_phone/routes/routes.dart';
+import 'package:my_car_in_phone/views/home.dart';
 
 class TestPage extends ConsumerWidget {
-  TestPage({super.key});
-
-  final user = StateNotifierProvider<TestNotifier, TestModel>((ref) {
-    return TestNotifier();
-  });
+  const TestPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final TestModel tt = ref.watch(testsProvider);
     return Scaffold(
       appBar: AppBar(),
       body: Container(
+        alignment: Alignment.center,
         child: Column(
           children: [
-            Text(ref.watch(user).userId),
-            Text(ref.watch(user).age.toString()),
+            Text(tt.userId),
+            Text(tt.age.toString()),
+            Text(ref.watch(np).age.toString()),
             TextButton(
-                onPressed: () =>
-                    ref.read(user.notifier).updateState("테스터", 10, null),
-                child: const Text("update")),
-            TextButton(
-                onPressed: () => Navigator.pushNamed(
-                    context, RouteEnum.home.path,
-                    arguments: "Hello?"),
-                child: const Text("home"))
+                onPressed: () => ref.read(testsProvider.notifier).updateAge(),
+                child: Text("click"))
           ],
         ),
       ),

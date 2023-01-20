@@ -1,12 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_car_in_phone/generated/l10n.dart';
 import 'package:my_car_in_phone/models/enum/part_type_enum.dart';
 import 'package:my_car_in_phone/models/repair.dart';
+import 'package:my_car_in_phone/models/test_model.dart';
 import 'package:my_car_in_phone/notifiers/car_info_notifier.dart';
 import 'package:my_car_in_phone/notifiers/repair_info_notifier.dart';
 import 'package:my_car_in_phone/notifiers/states/car_info_state.dart';
+import 'package:my_car_in_phone/notifiers/test_notifier.dart';
 import 'package:my_car_in_phone/routes/routes.dart';
+
+final np = NotifierProvider<MyTestNotifier, TestModel>(
+  () => MyTestNotifier(),
+);
 
 class HomePage extends ConsumerWidget {
   HomePage({super.key});
@@ -114,11 +122,18 @@ class HomePage extends ConsumerWidget {
             ),
 
             TextButton(
-              onPressed: () => Navigator.pushNamed(
-                context,
-                RouteEnum.calendar.path,
-              ),
-              child: Text("교체내역(달력)"),
+              onPressed: () {
+                log("update age??");
+                ref.read(testsProvider.notifier).updateAge();
+              },
+              child: Text("${ref.watch(testsProvider).age}"),
+            ),
+            TextButton(
+              onPressed: () {
+                log("update age?? ???????????");
+                ref.read(np.notifier).updateAge();
+              },
+              child: Text("${ref.watch(np).age}"),
             )
           ],
         ),

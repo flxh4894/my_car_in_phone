@@ -42,6 +42,8 @@ dependencies:
   json_annotation: ^4.7.0
   intl: ^0.17.0
   table_calendar: ^3.0.8
+  riverpod_annotation: ^1.1.1
+  riverpod_generator: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -93,5 +95,5 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
-  enabled: false
+  enabled: true
   main_locale: ko
