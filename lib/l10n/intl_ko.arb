@@ -18,5 +18,5 @@
   "carManage": "차량 관리",
   "needChange": "{day}일 뒤에 교체 필요.",
   "needChangeNow": "교체예정일이 지났습니다.",
-  "repadRecord": "나의 정비 내역"
+  "repairRecord": "나의 정비 내역"
 }

@@ -244,7 +244,7 @@ class S {
   String get repairRecord {
     return Intl.message(
       '나의 정비 내역',
-      name: 'repadRecord',
+      name: 'repairRecord',
       desc: '',
       args: [],
     );
