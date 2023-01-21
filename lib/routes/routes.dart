@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:my_car_in_phone/splash.dart';
+import 'package:my_car_in_phone/views/calendar.dart';
 import 'package:my_car_in_phone/views/home.dart';
 import 'package:my_car_in_phone/views/test.dart';
 
@@ -29,7 +30,7 @@ Widget getRouteWidget(RouteEnum route) {
     case RouteEnum.test:
       return TestPage();
     case RouteEnum.calendar:
-      return Container();
+      return CalendarPage();
   }
 }
 

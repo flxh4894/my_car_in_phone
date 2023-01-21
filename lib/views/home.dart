@@ -123,10 +123,10 @@ class HomePage extends ConsumerWidget {
 
             TextButton(
               onPressed: () {
-                log("update age??");
-                ref.read(testsProvider.notifier).updateAge();
+                log("달력페이지");
+                Navigator.pushNamed(context, RouteEnum.calendar.path);
               },
-              child: Text("${ref.watch(testsProvider).age}"),
+              child: Text("달력페이지"),
             ),
             TextButton(
               onPressed: () {
