@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -9,10 +8,9 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  final double triangleSize = 12;
-  final double progressHeight = 10;
-  final double tooltipHeight = 40;
-  final EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 12);
+  final double triangleSize = 10;
+  final double progressHeight = 8;
+  final double tooltipHeight = 30;
   final GlobalKey key = GlobalKey();
   double tooltipWidth = 0;
 
@@ -31,15 +29,12 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        width: double.infinity,
-        height: 500,
-        color: Colors.green.withOpacity(0.1),
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: LayoutBuilder(builder: (context, size) {
-          final maxWidth = size.maxWidth - triangleSize * 2;
+          final maxWidth = size.maxWidth - (triangleSize * 2);
           final double halfWidth = tooltipWidth / 2;
-          const double x = 0.2;
+          const double x = 0.5;
 
           double center = (maxWidth * x) - (halfWidth - triangleSize);
           if (center < 0) {
@@ -51,31 +46,36 @@ class _TestPageState extends State<TestPage> {
           return Container(
             width: size.maxWidth,
             height: progressHeight + triangleSize + tooltipHeight,
-            color: Colors.red.withOpacity(0.5),
+            color: Colors.red.withOpacity(0.1),
             child: Stack(
               children: [
-                Container(
-                  width: maxWidth,
-                  height: progressHeight,
-                  margin: margin,
-                  color: Colors.amber,
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    width: maxWidth,
+                    height: progressHeight,
+                    margin: EdgeInsets.symmetric(horizontal: triangleSize),
+                    color: Colors.blueAccent.withOpacity(0.2),
+                  ),
                 ),
-                Container(
-                  width: maxWidth * x,
-                  height: progressHeight,
-                  margin: margin,
-                  color: Colors.red,
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    width: maxWidth * x,
+                    height: progressHeight,
+                    margin: EdgeInsets.symmetric(horizontal: triangleSize),
+                    color: Colors.blueAccent,
+                  ),
                 ),
                 Positioned(
                   left: (triangleSize / 2) + (maxWidth * x),
-                  top: progressHeight,
+                  top: tooltipHeight,
                   child: _DrawTriAngle(
                     size: triangleSize,
                   ),
                 ),
                 Positioned(
                   left: center,
-                  top: progressHeight + triangleSize,
                   child: _DrawRect(
                     tooltipHeight: tooltipHeight,
                     key: key,
@@ -101,12 +101,14 @@ class _DrawRect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
       height: tooltipHeight,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.green,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(4),
       ),
+      child: Text("안녕하세요"),
     );
   }
 }
@@ -122,13 +124,40 @@ class _DrawTriAngle extends StatelessWidget {
     return SizedBox(
       width: size,
       height: size,
-      child: Transform.rotate(
-        // angle: 45 * math.pi / 180,
-        angle: 0,
-        child: Container(
+      child: CustomPaint(
+        size: Size(size, size),
+        painter: Triangle(
           color: Colors.green,
         ),
       ),
     );
+  }
+}
+
+class Triangle extends CustomPainter {
+  Triangle({
+    required this.color,
+  });
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint painter = Paint()
+      ..color = Colors.green
+      ..style = PaintingStyle.fill;
+
+    Path path = Path();
+    path.moveTo(size.width / 2, size.height);
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
+    path.close();
+
+    canvas.drawPath(path, painter);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
