@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:my_car_in_phone/splash.dart';
 import 'package:my_car_in_phone/views/calendar.dart';
 import 'package:my_car_in_phone/views/home.dart';
-import 'package:my_car_in_phone/views/test.dart';
+import 'package:my_car_in_phone/views/repar_item_list.dart';
 
 // Route Enum
-enum RouteEnum { splash, home, menu, test, calendar }
+enum RouteEnum { splash, home, menu, test, calendar, list }
 
 extension RouteEnumExtension on RouteEnum {
   String get path => toString();
@@ -28,9 +28,11 @@ Widget getRouteWidget(RouteEnum route) {
     case RouteEnum.menu:
       return Container();
     case RouteEnum.test:
-      return TestPage();
+      return Container();
     case RouteEnum.calendar:
       return CalendarPage();
+    case RouteEnum.list:
+      return RepairItemListPage();
   }
 }
 
@@ -51,7 +53,7 @@ PageRoute packRoute(RouteSettings settings) {
     }
   } on Exception catch (e) {
     log("settings.name 이 없는 경우 :: $e");
-    return FadeOutRoute(page: TestPage(), name: "");
+    return FadeOutRoute(page: Container(), name: "");
   }
 }
 
