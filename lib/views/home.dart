@@ -128,13 +128,24 @@ class HomePage extends ConsumerWidget {
               },
               child: Text("달력페이지"),
             ),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.pushNamed(
+            //       context,
+            //       RouteEnum.createInfo.path,
+            //     );
+            //   },
+            //   child: Text("생성"),
+            // ),
             TextButton(
               onPressed: () {
-                log("update age?? ???????????");
-                ref.read(np.notifier).updateAge();
+                Navigator.pushNamed(
+                  context,
+                  RouteEnum.list.path,
+                );
               },
-              child: Text("${ref.watch(np).age}"),
-            )
+              child: Text("목록"),
+            ),
           ],
         ),
       ),
