@@ -67,7 +67,6 @@ class HomePage extends ConsumerWidget {
                 ],
               ),
             ),
-
             // 컴포넌트 2
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -126,15 +125,26 @@ class HomePage extends ConsumerWidget {
                 log("달력페이지");
                 Navigator.pushNamed(context, RouteEnum.calendar.path);
               },
-              child: Text("달력페이지"),
+              child: const Text("달력페이지"),
             ),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.pushNamed(
+            //       context,
+            //       RouteEnum.createRepair.path,
+            //     );
+            //   },
+            //   child: Text("생성"),
+            // ),
             TextButton(
               onPressed: () {
-                log("update age?? ???????????");
-                ref.read(np.notifier).updateAge();
+                Navigator.pushNamed(
+                  context,
+                  RouteEnum.list.path,
+                );
               },
-              child: Text("${ref.watch(np).age}"),
-            )
+              child: const Text("목록"),
+            ),
           ],
         ),
       ),

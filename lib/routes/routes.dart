@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:my_car_in_phone/splash.dart';
 import 'package:my_car_in_phone/views/calendar.dart';
+import 'package:my_car_in_phone/views/create_info.dart';
 import 'package:my_car_in_phone/views/home.dart';
-import 'package:my_car_in_phone/views/test.dart';
+import 'package:my_car_in_phone/views/repair_item_list.dart';
 
 // Route Enum
-enum RouteEnum { splash, home, menu, test, calendar }
+enum RouteEnum { splash, home, menu, test, calendar, list, createRepair }
 
 extension RouteEnumExtension on RouteEnum {
   String get path => toString();
@@ -19,7 +20,7 @@ extension RouteEnumParser on String? {
 }
 
 /// Route Enum Path 에 따라 이동할 페이지 분기
-Widget getRouteWidget(RouteEnum route) {
+Widget getRouteWidget(RouteEnum route, Object? args) {
   switch (route) {
     case RouteEnum.splash:
       return SplashPage();
@@ -28,9 +29,13 @@ Widget getRouteWidget(RouteEnum route) {
     case RouteEnum.menu:
       return Container();
     case RouteEnum.test:
-      return TestPage();
+      return Container();
     case RouteEnum.calendar:
       return CalendarPage();
+    case RouteEnum.list:
+      return const RepairItemListPage();
+    case RouteEnum.createRepair:
+      return const CreateInfoPage();
   }
 }
 
@@ -45,13 +50,15 @@ PageRoute packRoute(RouteSettings settings) {
     log("args :: $args");
     switch (route) {
       case RouteEnum.home:
-        return FadeOutRoute(page: getRouteWidget(route), name: route.path);
+        return FadeOutRoute(
+            page: getRouteWidget(route, args), name: route.path);
       default:
-        return SlideRightRoute(page: getRouteWidget(route), name: route.path);
+        return SlideRightRoute(
+            page: getRouteWidget(route, args), name: route.path);
     }
   } on Exception catch (e) {
     log("settings.name 이 없는 경우 :: $e");
-    return FadeOutRoute(page: TestPage(), name: "");
+    return FadeOutRoute(page: Container(), name: "");
   }
 }
 
