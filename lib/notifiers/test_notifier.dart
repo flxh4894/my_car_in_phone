@@ -7,7 +7,7 @@ part 'test_notifier.g.dart';
 @riverpod
 class Tests extends _$Tests {
   @override
-  TestModel build() {
+  TestModel build({required String title}) {
     log("re build test");
     return TestModel(userId: "이도원", age: 32);
   }
@@ -17,20 +17,10 @@ class Tests extends _$Tests {
   }
 }
 
-// @riverpod
-// TestModel testNotifier(TestNotifierRef ref) {
-//   ref.onDispose(() => log("close test notifier"));
-
-//   void updateAge() {}
-
-//   return TestModel(userId: "Lee Do Won", age: 32);
-// }
-
 class MyTestNotifier extends Notifier<TestModel> {
   @override
   TestModel build() {
-    print("test");
-    return TestModel(userId: "haha", age: 10);
+    return TestModel(userId: "test", age: 10);
   }
 
   void updateAge() {
