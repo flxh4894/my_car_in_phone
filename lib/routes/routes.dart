@@ -3,12 +3,22 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:my_car_in_phone/splash.dart';
 import 'package:my_car_in_phone/views/calendar.dart';
+import 'package:my_car_in_phone/views/car_info_detail.dart';
 import 'package:my_car_in_phone/views/create_info.dart';
 import 'package:my_car_in_phone/views/home.dart';
 import 'package:my_car_in_phone/views/repair_item_list.dart';
 
 // Route Enum
-enum RouteEnum { splash, home, menu, test, calendar, list, createRepair }
+enum RouteEnum {
+  splash,
+  home,
+  menu,
+  test,
+  calendar,
+  list,
+  createRepair,
+  carInfoDetail
+}
 
 extension RouteEnumExtension on RouteEnum {
   String get path => toString();
@@ -36,6 +46,8 @@ Widget getRouteWidget(RouteEnum route, Object? args) {
       return const RepairItemListPage();
     case RouteEnum.createRepair:
       return const CreateInfoPage();
+    case RouteEnum.carInfoDetail:
+      return const CarInfoDetailPage();
   }
 }
 

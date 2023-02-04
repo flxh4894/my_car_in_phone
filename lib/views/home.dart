@@ -2,27 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_car_in_phone/containers/my_car_info.dart';
 import 'package:my_car_in_phone/generated/l10n.dart';
 import 'package:my_car_in_phone/models/enum/part_type_enum.dart';
 import 'package:my_car_in_phone/models/repair.dart';
-import 'package:my_car_in_phone/models/test_model.dart';
-import 'package:my_car_in_phone/notifiers/car_info_notifier.dart';
 import 'package:my_car_in_phone/notifiers/repair_info_notifier.dart';
-import 'package:my_car_in_phone/notifiers/states/car_info_state.dart';
-import 'package:my_car_in_phone/notifiers/test_notifier.dart';
 import 'package:my_car_in_phone/routes/routes.dart';
-
-final np = NotifierProvider<MyTestNotifier, TestModel>(
-  () => MyTestNotifier(),
-);
 
 class HomePage extends ConsumerWidget {
   HomePage({super.key});
-
-  final carInfoProvider =
-      StateNotifierProvider<CarInfoNotifier, CarInfo>((ref) {
-    return CarInfoNotifier();
-  });
 
   final repairInfoProvider =
       StateNotifierProvider<RepairInfoNotifier, List<RepairModel>>((ref) {
@@ -31,9 +19,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final CarInfo carInfo = ref.watch(carInfoProvider);
     final RepairInfoNotifier rn = ref.read(repairInfoProvider.notifier);
-
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -44,29 +30,7 @@ class HomePage extends ConsumerWidget {
         ),
         child: Column(
           children: [
-            TextButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, RouteEnum.test.path),
-              child: const Text("click"),
-            ),
-
-            // 컴포넌트 1
-            Container(
-              width: double.infinity,
-              color: Colors.blue.withOpacity(0.2),
-              child: Column(
-                children: [
-                  Text(carInfo.carNumber),
-                  Text("${carInfo.lastRepair} 마지막 정비일"),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      S.of(context).carInfo,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const MyCarInfoPanel(),
             // 컴포넌트 2
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -127,15 +91,7 @@ class HomePage extends ConsumerWidget {
               },
               child: const Text("달력페이지"),
             ),
-            // TextButton(
-            //   onPressed: () {
-            //     Navigator.pushNamed(
-            //       context,
-            //       RouteEnum.createRepair.path,
-            //     );
-            //   },
-            //   child: Text("생성"),
-            // ),
+
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(

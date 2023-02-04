@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:my_car_in_phone/models/enum/part_type_enum.dart';
 import 'package:my_car_in_phone/routes/routes.dart';
 import 'package:my_car_in_phone/states/parts_state.dart';
-part 'repair_item_list.freezed.dart';
 
 /// 정비 관련 목록 페이지
 class RepairItemListPage extends ConsumerWidget {
@@ -63,12 +61,4 @@ class _RowWidget extends ConsumerWidget {
       ],
     );
   }
-}
-
-@freezed
-class Parts with _$Parts {
-  factory Parts({
-    required PartTypeEnum partType,
-    required bool flag,
-  }) = _Parts;
 }
