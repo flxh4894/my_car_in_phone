@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class TestPage extends StatefulWidget {
@@ -108,7 +110,7 @@ class _DrawRect extends StatelessWidget {
         color: Colors.green,
         borderRadius: BorderRadius.circular(4),
       ),
-      child: Text("안녕하세요"),
+      child: const Text("안녕하세요"),
     );
   }
 }
